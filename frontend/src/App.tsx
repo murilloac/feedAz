@@ -7,8 +7,6 @@ import Indicators from './pages/Indicators'
 import Feedbacks from './pages/Feedbacks'
 import Users from './pages/Users'
 import Areas from './pages/Areas'
-import PerformanceEvolution from './pages/PerformanceEvolution'
-import PDIDetails from './pages/PDIDetails'
 
 function PrivateRoute({ children }: { children: JSX.Element }) {
   return authService.isAuthenticated() ? children : <Navigate to="/login" />
@@ -64,22 +62,6 @@ function App() {
           element={
             <PrivateRoute>
               <Feedbacks />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/performance/evolution/:employeeId"
-          element={
-            <PrivateRoute>
-              <PerformanceEvolution />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/pdis/:pdiId"
-          element={
-            <PrivateRoute>
-              <PDIDetails />
             </PrivateRoute>
           }
         />

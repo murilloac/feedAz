@@ -107,7 +107,10 @@ class IndicatorValue(BaseModel):
 class FeedbackBase(BaseModel):
     funcionario_id: int
     data_feedback: date
+    tipo_feedback: str = "MENSAL"  # MENSAL ou PONTUAL
     periodo_avaliado: Optional[str] = None
+    motivo_feedback: Optional[str] = None  # Apenas para PONTUAL
+    descricao_feedback: Optional[str] = None  # Apenas para PONTUAL
     indicadores_valores: Optional[str] = None
     assiduidade: Optional[str] = None
     aderencia: Optional[str] = None
@@ -125,6 +128,7 @@ class Feedback(FeedbackBase):
     id: int
     lider_id: int
     data_criacao: datetime
+    tipo_feedback: str
     assinado: bool
     data_assinatura: Optional[datetime] = None
     comentario_colaborador: Optional[str] = None

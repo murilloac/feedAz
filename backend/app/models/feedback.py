@@ -11,6 +11,9 @@ class Feedback(Base):
     data_feedback = Column(Date, nullable=False)
     data_criacao = Column(DateTime, default=datetime.utcnow)
     periodo_avaliado = Column(String)  # Ex: "Janeiro/2024", "01/01/2024 a 31/01/2024"
+    tipo_feedback = Column(String, default="MENSAL")  # MENSAL ou PONTUAL
+    motivo_feedback = Column(Text)  # Usado apenas em feedback pontual
+    descricao_feedback = Column(Text)  # Usado apenas em feedback pontual
 
     indicadores_valores = Column(Text)
     assiduidade = Column(String)
