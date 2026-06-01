@@ -21,13 +21,13 @@ jobs:
       # buildando o backend
       - name: Build and Push Backend
         run: |
-          docker build -t feedaz-backend:latest -f backend/Dockerfile .
+          docker build -t feedaz-backend:latest -f backend/Dockerfile backend/
           docker tag feedaz-backend:latest ${{ secrets.DOCKERHUB_USERNAME }}/feedaz-backend:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/feedaz-backend:latest
 
       # buildando o frontend
       - name: Build and Push Frontend
         run: |
-          docker build -t feedaz-frontend:latest -f frontend/Dockerfile .
+          docker build -t feedaz-frontend:latest -f frontend/Dockerfile frontend/
           docker tag feedaz-frontend:latest ${{ secrets.DOCKERHUB_USERNAME }}/feedaz-frontend:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/feedaz-frontend:latest
