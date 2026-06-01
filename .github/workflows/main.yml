@@ -31,3 +31,10 @@ jobs:
           docker build -t feedaz-frontend:latest -f frontend/Dockerfile frontend/
           docker tag feedaz-frontend:latest ${{ secrets.DOCKERHUB_USERNAME }}/feedaz-frontend:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/feedaz-frontend:latest
+
+      # docker push para o nginx
+      - name: Build and Push Nginx
+        run: |
+          docker build -t feedaz-nginx:latest -f nginx/Dockerfile nginx/
+          docker tag feedaz-nginx:latest ${{ secrets.DOCKERHUB_USERNAME }}/feedaz-nginx:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/feedaz-nginx:latest
