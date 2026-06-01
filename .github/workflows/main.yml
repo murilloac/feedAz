@@ -1,0 +1,33 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout v4.1.7
+
+      - name: Login to Docker Hub
+        uses: docker/login-actionv3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # buildando o backend
+      - name: Build and Push Backend
+        run: |
+          docker build -t feedaz-backend:latest -f backend/Dockerfile .
+          docker tag feedaz-backend:latest ${{ secrets.DOCKERHUB_USERNAME }}/feedaz-backend:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/feedaz-backend:latest
+
+      # buildando o frontend
+      - name: Build and Push Frontend
+        run: |
+          docker build -t feedaz-frontend:latest -f frontend/Dockerfile .
+          docker tag feedaz-frontend:latest ${{ secrets.DOCKERHUB_USERNAME }}/feedaz-frontend:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/feedaz-frontend:latest
