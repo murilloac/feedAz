@@ -2,11 +2,11 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
+COPY . .
+
 RUN pip install -r requirements.txt
 
 RUN npm install
-
-COPY . .
 
 EXPOSE 8000
 
