@@ -1,6 +1,16 @@
-from sqlalchemy import Column, Integer, String, Text, Date, ForeignKey, Boolean, DateTime
+from sqlalchemy import (
+    Column,
+    Integer,
+    String,
+    Text,
+    Date,
+    ForeignKey,
+    Boolean,
+    DateTime,
+)
 from datetime import datetime
 from app.database import Base
+
 
 class PDI(Base):
     __tablename__ = "pdis"
@@ -12,12 +22,15 @@ class PDI(Base):
     descricao = Column(Text)
     objetivo = Column(Text)
     prazo = Column(Date)
-    status = Column(String, default="EM_ANDAMENTO")  # EM_ANDAMENTO, CONCLUIDO, CANCELADO
+    status = Column(
+        String, default="EM_ANDAMENTO"
+    )  # EM_ANDAMENTO, CONCLUIDO, CANCELADO
     progresso = Column(Integer, default=0)  # 0-100
     criado_por = Column(Integer, ForeignKey("users.id"), nullable=False)
     data_criacao = Column(DateTime, default=datetime.utcnow)
     data_conclusao = Column(DateTime)
     observacoes = Column(Text)
+
 
 class PDIAction(Base):
     __tablename__ = "pdi_actions"

@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, Boolean
 from app.database import Base
 
+
 class Area(Base):
     __tablename__ = "areas"
 

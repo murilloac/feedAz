@@ -2,20 +2,24 @@ from pydantic import BaseModel, EmailStr
 from typing import Optional, List
 from datetime import date, datetime
 
+
 # Area Schemas
 class AreaBase(BaseModel):
     nome: str
     descricao: Optional[str] = None
 
+
 class AreaCreate(AreaBase):
     pass
+
 
 class Area(AreaBase):
     id: int
     ativo: bool
-    
+
     class Config:
         from_attributes = True
+
 
 # User Schemas
 class UserBase(BaseModel):
@@ -24,9 +28,11 @@ class UserBase(BaseModel):
     area: Optional[str] = None
     pergunta_secreta: Optional[str] = None
 
+
 class UserCreate(UserBase):
     senha: str
     resposta_secreta: Optional[str] = None
+
 
 class UserUpdate(BaseModel):
     nome: Optional[str] = None
@@ -36,17 +42,20 @@ class UserUpdate(BaseModel):
     pergunta_secreta: Optional[str] = None
     resposta_secreta: Optional[str] = None
 
+
 class UserLogin(BaseModel):
     email: EmailStr
     senha: str
+
 
 class User(UserBase):
     id: int
     perfil: str
     ativo: bool
-    
+
     class Config:
         from_attributes = True
+
 
 # Employee Schemas
 class EmployeeBase(BaseModel):
@@ -55,8 +64,10 @@ class EmployeeBase(BaseModel):
     cargo: Optional[str] = None
     data_admissao: Optional[date] = None
 
+
 class EmployeeCreate(EmployeeBase):
     senha_assinatura: str
+
 
 class EmployeeUpdate(BaseModel):
     nome: Optional[str] = None
@@ -66,13 +77,15 @@ class EmployeeUpdate(BaseModel):
     senha_assinatura: Optional[str] = None
     ativo: Optional[bool] = None
 
+
 class Employee(EmployeeBase):
     id: int
     lider_id: int
     ativo: bool
-    
+
     class Config:
         from_attributes = True
+
 
 # Indicator Schemas
 class IndicatorBase(BaseModel):
@@ -80,10 +93,14 @@ class IndicatorBase(BaseModel):
     area: str
     descricao: Optional[str] = None
     meta: Optional[str] = None
-    campo_vinculado: Optional[str] = "INDICADORES"  # INDICADORES, ASSIDUIDADE, ADERENCIA
+    campo_vinculado: Optional[str] = (
+        "INDICADORES"  # INDICADORES, ASSIDUIDADE, ADERENCIA
+    )
+
 
 class IndicatorCreate(IndicatorBase):
     pass
+
 
 class IndicatorUpdate(BaseModel):
     nome: Optional[str] = None
@@ -92,17 +109,20 @@ class IndicatorUpdate(BaseModel):
     meta: Optional[str] = None
     campo_vinculado: Optional[str] = None
 
+
 class Indicator(IndicatorBase):
     id: int
-    
+
     class Config:
         from_attributes = True
+
 
 # Feedback Schemas
 class IndicatorValue(BaseModel):
     indicator_id: int
     indicator_nome: str
     valor: str
+
 
 class FeedbackBase(BaseModel):
     funcionario_id: int
@@ -117,12 +137,15 @@ class FeedbackBase(BaseModel):
     pontos_positivos: Optional[str] = None
     melhorias: Optional[str] = None
 
+
 class FeedbackCreate(FeedbackBase):
     pass
+
 
 class FeedbackSign(BaseModel):
     senha_assinatura: str
     comentario_colaborador: Optional[str] = None
+
 
 class Feedback(FeedbackBase):
     id: int
@@ -132,24 +155,29 @@ class Feedback(FeedbackBase):
     assinado: bool
     data_assinatura: Optional[datetime] = None
     comentario_colaborador: Optional[str] = None
-    
+
     class Config:
         from_attributes = True
+
 
 class Token(BaseModel):
     access_token: str
     token_type: str
 
+
 class TokenData(BaseModel):
     email: Optional[str] = None
 
+
 class PasswordResetRequest(BaseModel):
     email: EmailStr
+
 
 class PasswordReset(BaseModel):
     email: EmailStr
     resposta_secreta: str
     nova_senha: str
+
 
 # Audit Log Schemas
 class AuditLogBase(BaseModel):
@@ -158,14 +186,16 @@ class AuditLogBase(BaseModel):
     entity_id: Optional[int] = None
     details: Optional[str] = None
 
+
 class AuditLog(AuditLogBase):
     id: int
     user_id: int
     ip_address: Optional[str] = None
     timestamp: datetime
-    
+
     class Config:
         from_attributes = True
+
 
 # Performance History Schemas
 class PerformanceHistoryBase(BaseModel):
@@ -176,11 +206,13 @@ class PerformanceHistoryBase(BaseModel):
     indicadores_json: Optional[str] = None
     posicao_ranking: Optional[int] = None
 
+
 class PerformanceHistory(PerformanceHistoryBase):
     id: int
-    
+
     class Config:
         from_attributes = True
+
 
 # PDI Schemas
 class PDIActionBase(BaseModel):
@@ -188,16 +220,19 @@ class PDIActionBase(BaseModel):
     descricao: Optional[str] = None
     concluida: bool = False
 
+
 class PDIActionCreate(PDIActionBase):
     pass
+
 
 class PDIAction(PDIActionBase):
     id: int
     pdi_id: int
     data_conclusao: Optional[datetime] = None
-    
+
     class Config:
         from_attributes = True
+
 
 class PDIBase(BaseModel):
     employee_id: int
@@ -208,9 +243,11 @@ class PDIBase(BaseModel):
     status: str = "EM_ANDAMENTO"
     progresso: int = 0
 
+
 class PDICreate(PDIBase):
     feedback_id: Optional[int] = None
     acoes: Optional[List[PDIActionCreate]] = []
+
 
 class PDIUpdate(BaseModel):
     titulo: Optional[str] = None
@@ -221,6 +258,7 @@ class PDIUpdate(BaseModel):
     progresso: Optional[int] = None
     observacoes: Optional[str] = None
 
+
 class PDI(PDIBase):
     id: int
     feedback_id: Optional[int] = None
@@ -228,6 +266,6 @@ class PDI(PDIBase):
     data_criacao: datetime
     data_conclusao: Optional[datetime] = None
     observacoes: Optional[str] = None
-    
+
     class Config:
         from_attributes = True

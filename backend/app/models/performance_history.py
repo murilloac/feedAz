@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey, Text
 from app.database import Base
 
+
 class PerformanceHistory(Base):
     __tablename__ = "performance_history"
 
