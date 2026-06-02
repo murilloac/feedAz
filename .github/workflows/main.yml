@@ -25,6 +25,18 @@ jobs:
           docker tag feedaz-backend:latest ${{ secrets.DOCKERHUB_USERNAME }}/feedaz-backend:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/feedaz-backend:latest
 
+      - name: Check Backend formatting
+        run: |
+          black --check backend/
+
+      - name: Check Backend linting
+        run: |
+          flake8 backend/
+
+      - name: Bandit scan
+        run: |
+          bandit -r backend/
+
       # buildando o frontend
       - name: Build and Push Frontend
         run: |
