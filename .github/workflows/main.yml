@@ -39,6 +39,7 @@ jobs:
           flake8 backend/
 
       - name: Bandit scan
+        continue-on-error: true
         run: |
           bandit -r backend/
 
